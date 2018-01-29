@@ -1,0 +1,3 @@
+<?php 
+#Salir del sistema
+?>

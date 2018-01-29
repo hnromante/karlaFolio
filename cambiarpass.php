@@ -1,0 +1,3 @@
+<?php 
+#Cambiar la contraseña
+?>
