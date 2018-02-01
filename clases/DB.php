@@ -22,13 +22,13 @@ class DB {
             $password = Config::get('mysql/password');
             #new PDO(HOST;DBNAME,USERNAME,PASSWORD)
             $this->_pdo = new PDO('mysql:host='.$host.';'.'dbname='.$dbname,$username.$password);
-            echo '<center>INSTANCIA DE BASE DE DATOS CONECTADA</center><br>';
+            //echo '<center>INSTANCIA DE BASE DE DATOS CONECTADA</center><br>';
         }catch(PDOException $e){
             die($e->getMessage());
         }
     }
 
-    //METODO PARA OBTENER LA ÚNICA INSTANCIA DE BASE DE DATOS. Patrón singleton.
+    //METODO PARA  LA ÚNICA INSTANCIA DE BASE DE DATOS. Patrón singleton.
 
     public static function getInstance(){
         if (!isset(self::$_instance)){
@@ -104,7 +104,7 @@ class DB {
         return false;
     }
 
-    public function obtener($tabla,$where){
+    public function get($tabla,$where){
         return $this->accion('SELECT *',$tabla,$where);
     }
     
@@ -129,7 +129,7 @@ class DB {
     //El método insertar recibe 2 parametros, la $tabla donde se va a insertar y un arreglo de $campos vamos a insertar
     public function insertar($tabla, $campos){
             
-        $keys = array_keys($campos);
+        $llaves = array_keys($campos);
         $valores = '';
         $x = 1;
 
@@ -139,10 +139,10 @@ class DB {
             if ($x < count($campos)){
                 $valores .= ', '; 
             }
-                $x++;    
+            $x++;    
         }
         
-        $sql = "INSERT INTO usuarios (".implode(",",$keys).") VALUES ({$valores})";
+        $sql = "INSERT INTO {$tabla} (".implode(",",$llaves).") VALUES ({$valores})";
         if (!$this->query($sql, $campos)->error()){
             echo 'Insertado correctamente';
             return true;
@@ -159,14 +159,13 @@ class DB {
         $set = '';
         $x = 1;
 
-        foreach ($campos as $nombre => $valor){
+        foreach ($campos as $llave => $valor){
             
-            $set .="{$nombre} = ?";
+            $set .="{$llave} = ?";
             //Si el contador aun es menor que la cantidad de CAMPOS, vamos a CONDADENAR una COMA y un ESPACIO para separar.
             if($x < count($campos)){
                 $set .= ', ';
-            }
-
+            } 
             $x++;
         }
     

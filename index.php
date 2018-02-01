@@ -22,7 +22,7 @@ PROBANDO GET ISNTANCE DE LA BASE DE DATOS.
 //Acá llamemos a los usuarios pero esta vez ocupando una función HELPER.
                         #()->get('TABLA',array(campo,operador,valor));
 
-$karla = DB::getInstance()->obtener('usuarios', array('nombreusuario','=','karla'));
+$karla = DB::getInstance()->get('usuarios', array('nombreusuario','=','karla'));
 
 $usuarios = DB::getInstance()->query("SELECT * FROM usuarios");
 if (!$usuarios->count()){

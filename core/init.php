@@ -20,7 +20,7 @@ $GLOBALS['config'] = array(
     ), 
     #Array que se encarga de gaurdar los hashes de las sesiones activas. 'Remember me'.
     'session' =>array( 
-        'nombre_sesion' => 'usuario'
+        'nombre_token' => 'usuario'
 
     ) 
 );
