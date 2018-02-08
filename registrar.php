@@ -31,9 +31,7 @@ include 'extend/header.php';
 //PRUEBA DE INPUT
 if (Input::existe('post')){
     if (Token::check(Input::get('token'))){
-    //echo 'Se ingresó data por POST <br>';
-    //echo Input::get('nombreusuario'); 
-    echo 'INGRESO LOS DAOTS POR EL BOTÓN!<br>';
+    
     //VALIDACION DE CAMPOS, la estructura es:
         //1.- Crear instancia de la clase Validar.
         $validar = new Validar();
@@ -43,7 +41,7 @@ if (Input::existe('post')){
             'nombreusuario' => array(
                 'nombre' => 'Nombre de usuario',
                 'required' => true,
-                'min' => 5,
+                'min' => 4,
                 'max' => 20,
                 //Esta regla dice: el 'Nombre de usuario'  debe ser único en la tabla 'usuarios'. Se checkea con la BD.
                 'unico' => 'usuarios'
@@ -74,7 +72,32 @@ if (Input::existe('post')){
 
         if ($validacion->correcta()){
             //Registrar usuario
-            echo 'VALIDACION CORRECTA';
+            // echo 'VALIDACION CORRECTA';
+            // Session::flash('exito',"Se ha registrado correctamente!.");
+            // header('Location: index.php');
+            $usu = new Usuario();
+            $salt = Hash::salt(32);
+             
+            try {
+                $usu->crear(
+                        array(
+                        'nombreusuario' => Input::get('nombreusuario'),
+                        'email' => Input::get('email'),
+                        'password' => Hash::crear(Input::get('password'),$salt),
+                        'salt' => $salt,
+                        'nombre' => Input::get('nombre'),
+                        'ingreso' => date('Y-m-d H:i:s'),
+                        'grupo' => 1
+                        )
+                );
+
+                //Ahora flashiamos!
+                Session::flash('home','Haz sido registrado y te puedes loguear!');
+                Redirect::to('index.php');
+            }catch(Exception $e){
+                //ESTO DEBERÍA SER UNA REDIRECCIÓN, CON UN MENSAJE. ES DECIR, UN FLASH.
+                die($e->getMessage());
+            }
         }else {
             //Mostrar los errores
             foreach ($validacion->errores() as $error) {

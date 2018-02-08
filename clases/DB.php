@@ -105,7 +105,7 @@ class DB {
     }
 
     public function get($tabla,$where){
-        return $this->accion('SELECT *',$tabla,$where);
+        return $this->accion("SELECT * ",$tabla,$where);
     }
     
     public function eliminar($tabla,$where){

@@ -16,7 +16,7 @@ PROBANDO GET ISNTANCE DE LA BASE DE DATOS.
 <?php 
 //Esta linea de codigo no funciona si no se ha inicializado la isntancia (Ver  singleton.)
 #$db = new DB();
-//$usuario = DB::getInstance()->query("SELECT nombreusuario FROM usuarios WHERE id = ?", array('asd'));
+//$usuario = DB::getInstance()->query("SELECT nombreusuario FROM usuarios WHERE id = ?",    array('asd'));
 
 
 //Acá llamemos a los usuarios pero esta vez ocupando una función HELPER.
@@ -37,4 +37,21 @@ if (!$usuarios->count()){
     echo '<hr>';
     echo 'El primer usuario es: '.$usuarios->primero()->nombreusuario;
 }
+//PRUEBA DE FLASH. Capturamos los datos enviamos desde REGISTRAR.PHP a INDEX.PHP a través de la sesión. Cuando refrescamos la página ya no debería estar
+//porque eliminamos la session con el nombre 'EXITO'. Ver metodo Session::flash().
+
+    if(Session::existe('exito')){
+        echo '<h1>';
+        
+            Session::flash('exito');
+        echo '</h1>';
+    }
+
+    if(Session::existe('home')){
+        echo '<h1>'; 
+            Session::flash('home');
+        echo '</h1>';
+    }
 ?>
+
+<h1><a href="registrar.php">LINK RETORN REGISTRAR</a></h1>

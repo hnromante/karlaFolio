@@ -29,5 +29,23 @@ class Session {
             return $_SESSION[$nombre];
         }
     }
+
+    //FLASH. Mostrar un mensaje con X nombre de sesion. Luego se borra X sesion para que cuando refresque la página ya no este el mensaje.
+    //Si la sesion no existe, la creamos con el mensaje.
+    #NOTA: PARA QUE ESTO FUNCIONE, EL MENSAJE DE FLASH DEBE SER RECIBIDO EN LA PAGINA QUE HICIMOS REDIRECCION. EJEMPLO registar.php -> index.php, con el siguiente formato:
+    #
+    public static function flash ($nombre, $mensaje = ""){
+
+        if (self::existe($nombre)){
+            $sesion = self::get($nombre);
+            self::delete($nombre);
+            print_r($sesion);
+
+            return $sesion;
+        }else{
+            self::put($nombre,$mensaje);
+        }
+        return '';
+    }
 }
 ?>

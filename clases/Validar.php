@@ -59,13 +59,13 @@ class Validar{
                                 $this->agregarError("Las contraseñas no coinciden");
                             }
                         break;
-                        //Este valor lo capturamos de la base de datos. get('Nombre tabla', array('nombrecolumnatabla/nombreinputhtml','=',''))
+                        //Este valor lo capturamos de la base de datos. get('Nombre tabla', array('nombrecolumnatabla/nombreinputhtml','=','karla'))
                         case 'unico':
-                                                     
-                            
+                        //https://www.youtube.com/watch?v=rWon2iC-cQ0&list=PLfdtiltiRHWF5Rhuk7k4UAU1_yLAZzhWc&index=11 , Min 33.
+
                             $unico = $this->_db->get($valor_regla, array($input,'=',$valor));
-                            if(!$unico){
-                                print_r($unico);
+
+                            if($unico->count()){
                                 $this->agregarError("{$valor} ya existe");
                             }
                         break;
