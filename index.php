@@ -5,7 +5,7 @@
 
 require_once 'core/init.php';
 
-
+include 'extend/header.php';
 ?>
 <h1>El host name es : <?php echo Config::get('mysql/host');?></h1>
 <h1>El Nombre de usuario es : <?php echo Config::get('mysql/username');?></h1>
@@ -55,3 +55,5 @@ if (!$usuarios->count()){
 ?>
 
 <h1><a href="registrar.php">LINK RETORN REGISTRAR</a></h1>
+
+<?php include 'extend/footer.php'; ?>

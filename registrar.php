@@ -140,6 +140,7 @@ if (Input::existe('post')){
                 <input type="text" id="nombre" name="nombre" value="<?php echo  escape(Input::get('nombre')); ?>" >
                 <label for="nombre">Nombre completo</label>
             </div>
+            <!-- BOTON-->
             <div class="input-field col s12">
                 <input type="hidden" name="token" value="<?php echo Token::generar();?>">
                 <button id="guardar" name="guardar" type="submit" class="btn">Guardar <i class="material-icons small">send</i></button>
